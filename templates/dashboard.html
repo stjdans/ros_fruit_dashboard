@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>심심한 로봇 모니터링 시스템</title>
+    <!-- Font Awesome CDN for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- ECharts CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <header>
+        <i class="fa-solid fa-robot"></i> 심심한 로봇 모니터링 시스템
+    </header>
+
+    <main>
+        <!-- Row 1, Column 1: Vision Monitoring -->
+        <section class="card vision-monitoring">
+            <div class="vision-monitoring-header">
+                <h2 class="card-title">실시간 비전 모니터링</h2>
+                <div class="stats">
+                    오더 처리 성공율: 99/100
+                    <span>|</span>
+                    <span class="success-rate">99%</span>
+                    <span>|</span>
+                    5회 반복
+                    <span>|</span>
+                    오더번호: 100
+                </div>
+            </div>
+            <div class="vision-screen">
+                <i class="fa-solid fa-video"></i>
+                <img src="/video_feed" alt="Camera Stream">
+                <div class="screen-overlay">
+                    <div class="overlay-top">
+                        <button class="btn primary" id="task-toggle">
+                            <i class="fa-solid fa-play"></i> 업무 시작
+                        </button>
+                        <div class="current-order">
+                            <h4>100번째 오더</h4>
+                            <p>오렌지: 2개</p>
+                            <p>바나나: 3개</p>
+                            <p>구아바: 1개</p>
+                        </div>
+                    </div>
+                    <div class="overlay-bottom">
+                        <div class="bottom-controls">
+                            <button class="btn" id="camera-toggle"><i class="fa-solid fa-camera"></i></button>
+                            <button class="btn" id="record-toggle"><i class="fa-solid fa-video"></i> 녹화</button>
+                            <button class="btn"><i class="fa-solid fa-camera-retro"></i> 캡처</button>
+                            <button class="btn active" id="bbox-toggle">인식박스</button>
+                        </div>
+                        <div class="timestamp" id="live-timestamp"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Row 1, Column 2: Robot Control -->
+        <section class="card robot-control">
+            <h2 class="card-title">로봇 제어</h2>
+            <div class="control-grid">
+                <button class="btn span-4"><i class="fa-solid fa-basket-shopping"></i> 과일 생성</button>
+                <button class="btn span-4"><i class="fa-solid fa-hand-pointer"></i> 포지션 복귀</button>
+                <button class="btn">1</button>
+                <button class="btn">2</button>
+                <button class="btn">3</button>
+                <button class="btn">4</button>
+                <button class="btn">Q</button>
+                <button class="btn">W</button>
+                <button class="btn">E</button>
+                <button class="btn">R</button>
+                <button class="btn">I</button>
+                <button class="btn">J</button>
+                <button class="btn">K</button>
+                <button class="btn">L</button>
+                <button class="btn span-2">O</button>
+                <button class="btn span-2">P</button>
+            </div>
+        </section>
+        
+        <!-- Row 1, Column 3: Progress Check -->
+        <section class="card progress-check">
+            <h2 class="card-title">진도 체크</h2>
+            <ul class="progress-steps">
+                <li class="active">오더 생성</li>
+                <li class="active">Grip 1</li>
+                <li class="active">Put 1</li>
+                <li>과일 인식</li>
+                <li>계산 & 항목 추가</li>
+                <li>Grip 2</li>
+                <li>Put 2</li>
+                <li><span class="data">3</span>회/<span class="data">총 6</span>회</li>
+                <li>Complete</li>
+            </ul>
+        </section>
+
+        <!-- Row 2, Column 1: Price Setting -->
+        <section class="card price-setting">
+            <h2 class="card-title">과일 가격 세팅</h2>
+            <div class="price-list">
+                <div class="price-item">
+                    <span>오렌지</span>
+                    <input type="text" value="5,000" id="price-orange" readonly> 원
+                </div>
+                <div class="price-item">
+                    <span>바나나</span>
+                    <input type="text" value="10,000" id="price-banana" readonly> 원
+                </div>
+                <div class="price-item">
+                    <span>구아바</span>
+                    <input type="text" value="15,000" id="price-guava" readonly> 원
+                </div>
+            </div>
+            <div class="price-controls">
+                <button class="btn primary" id="price-edit-toggle">수정</button>
+            </div>
+        </section>
+        
+        <!-- Row 2, Column 2: Sales Status -->
+        <section class="card sales-status">
+            <h2 class="card-title">오늘 매출 현황</h2>
+            <div class="sales-content">
+                <div class="sales-summary">
+                    <div class="summary-item">
+                        <h3>102 <span>건</span></h3>
+                        <p>ORDERS</p>
+                    </div>
+                    <div class="summary-item">
+                        <h3>205 <span>만원</span></h3>
+                        <p>INCOME</p>
+                    </div>
+                </div>
+                <div class="sales-by-fruit">
+                    <div class="fruit-card">
+                        <span>🍊</span>
+                        <span class="count">15개</span>
+                        <span class="income">20</span>
+                        <span class="unit">만원</span>
+                    </div>
+                    <div class="fruit-card">
+                        <span>🍌</span>
+                        <span class="count">40개</span>
+                        <span class="income">50</span>
+                        <span class="unit">만원</span>
+                    </div>
+                    <div class="fruit-card">
+                        <span>🍈</span>
+                        <span class="count">10개</span>
+                        <span class="income">70</span>
+                        <span class="unit">만원</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Row 2, Column 3: Sales Analysis -->
+        <section class="card sales-analysis">
+            <div class="analysis-header">
+                <h2 class="card-title">판매 분석 & 통계</h2>
+                <div class="filter-groups">
+                    <div class="filter-group" id="time-filter">
+                        <button class="btn active" data-value="Daily">Daily</button>
+                        <button class="btn" data-value="Weekly">Weekly</button>
+                        <button class="btn" data-value="Monthly">Monthly</button>
+                    </div>
+                    <div class="filter-group" id="fruit-filter">
+                        <button class="btn active" data-value="Total">Total</button>
+                        <button class="btn" data-value="Orange">🍊</button>
+                        <button class="btn" data-value="Banana">🍌</button>
+                        <button class="btn" data-value="Guava">🍈</button>
+                    </div>
+                     <div class="filter-group" id="chart-type-filter">
+                        <button class="btn active" data-value="line">선형</button>
+                        <button class="btn" data-value="bar">막대</button>
+                    </div>
+                </div>
+            </div>
+            <div class="analysis-content">
+                <div class="analysis-summary">
+                    <div class="analysis-summary-item">
+                        <span class="value">201</span>
+                        <span class="label">Orders</span>
+                    </div>
+                     <div class="analysis-summary-item">
+                        <span class="value">200<span>만원</span></span>
+                        <span class="label">Income</span>
+                    </div>
+                </div>
+                <div id="echarts-container" class="chart-container"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Custom JavaScript -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
+
