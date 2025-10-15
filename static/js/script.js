@@ -47,8 +47,21 @@ document.addEventListener('DOMContentLoaded', function () {
     
     // Camera Toggle
     const cameraToggle = document.getElementById('camera-toggle');
+    const videoFeed = document.querySelector('.vision-screen img');
+    const videoFeedUrl = '/video_feed';
+    
     cameraToggle.addEventListener('click', () => {
-        cameraToggle.classList.toggle('active');
+        const isActive = cameraToggle.classList.toggle('active');
+        
+        if (isActive) {
+            // 카메라 켜기: 비디오 피드 활성화
+            videoFeed.src = videoFeedUrl;
+            videoFeed.style.opacity = '1';
+        } else {
+            // 카메라 끄기: 비디오 피드 중지
+            videoFeed.src = '';
+            videoFeed.style.opacity = '0.3';
+        }
     });
 
     // Price Edit/Save Toggle
