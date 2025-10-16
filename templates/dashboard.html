@@ -38,7 +38,7 @@
             </div>
             <div class="vision-screen">
                 <i class="fa-solid fa-video"></i>
-                <img src="/video_feed" alt="Camera Stream">
+                <img src="" alt="Camera Stream">
                 <div class="screen-overlay">
                     <div class="overlay-top">
                         <button class="btn primary" id="task-toggle">
@@ -56,7 +56,7 @@
                             <button class="btn" id="camera-toggle"><i class="fa-solid fa-camera"></i></button>
                             <button class="btn" id="record-toggle"><i class="fa-solid fa-video"></i> 녹화</button>
                             <button class="btn"><i class="fa-solid fa-camera-retro"></i> 캡처</button>
-                            <button class="btn active" id="bbox-toggle">인식박스</button>
+                            <button class="btn" id="bbox-toggle">인식박스</button>
                         </div>
                         <div class="timestamp" id="live-timestamp"></div>
                     </div>
@@ -202,6 +202,7 @@
     </main>
 
     <!-- Custom JavaScript -->
+    <script src="{{ url_for('static', filename='js/config.js') }}"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>

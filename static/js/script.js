@@ -40,9 +40,52 @@ document.addEventListener('DOMContentLoaded', function () {
     
     // Bounding Box Toggle
     const bboxToggle = document.getElementById('bbox-toggle');
-    bboxToggle.addEventListener('click', () => {
+    
+    // 초기 인식박스 상태를 파라미터 서버에서 가져오기
+    async function initializeBboxToggle() {
+        try {
+            const response = await fetch(CONFIG.parameterServerUrl + CONFIG.endpoints.parameterGet + '?param_name=use_yolo');
+            const data = await response.json();
+            console.log('resp: ', data);
+
+            const success = data.success;
+            const useYolo = data.param_value;
+
+            // useYolo 값에 따라 버튼 상태 설정 (useYolo active 상태가 반대)
+            if (useYolo) {
+                bboxToggle.classList.add('active');
+                bboxToggle.textContent = '인식박스';
+            } else {
+                bboxToggle.classList.remove('active');
+                bboxToggle.textContent = '인식박스 X';
+            }
+            
+        } catch (error) {
+            console.error('YOLO 초기 상태 가져오기 오류:', error);
+            // 오류 시 기본 상태 유지
+        }
+    }
+    
+    // 초기화 실행
+    initializeBboxToggle();
+    
+    bboxToggle.addEventListener('click', async () => {
         const isActive = bboxToggle.classList.toggle('active');
         bboxToggle.textContent = isActive ? '인식박스' : '인식박스 X';
+        
+        // 파라미터 서버의 YOLO 토글 API 호출
+        try {
+            const response = await fetch(CONFIG.parameterServerUrl + CONFIG.endpoints.yoloToggle, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ use_yolo: isActive })
+            });
+            const data = await response.json();
+            console.log('resp: ', data);
+            
+        } catch (error) {
+            console.error('YOLO 토글 API 호출 오류:', error);
+        }
     });
     
     // Camera Toggle
