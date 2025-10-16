@@ -254,6 +254,429 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    // Robot Control - I Button (Forward)
+    const btnI = document.getElementById('btn-i');
+    
+    if (btnI) {
+        btnI.addEventListener('click', async () => {
+            try {
+                const response = await fetch(CONFIG.controlServerUrl + CONFIG.endpoints.robotForward, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ speed: CONFIG.robotControl.defaultSpeed })
+                });
+                const data = await response.json();
+                console.log('Robot forward response:', data);
+                
+                if (data.success) {
+                    // 성공 시 버튼 피드백 (선택적)
+                    btnI.style.backgroundColor = '#34a9a0';
+                    setTimeout(() => {
+                        btnI.style.backgroundColor = '';
+                    }, 200);
+                }
+            } catch (error) {
+                console.error('Robot forward API 호출 오류:', error);
+            }
+        });
+    }
+
+    // Robot Control - J Button (Backward)
+    const btnJ = document.getElementById('btn-j');
+    
+    if (btnJ) {
+        btnJ.addEventListener('click', async () => {
+            try {
+                const response = await fetch(CONFIG.controlServerUrl + CONFIG.endpoints.robotBackward, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ speed: CONFIG.robotControl.defaultSpeed })
+                });
+                const data = await response.json();
+                console.log('Robot backward response:', data);
+                
+                if (data.success) {
+                    // 성공 시 버튼 피드백 (선택적)
+                    btnJ.style.backgroundColor = '#34a9a0';
+                    setTimeout(() => {
+                        btnJ.style.backgroundColor = '';
+                    }, 200);
+                }
+            } catch (error) {
+                console.error('Robot backward API 호출 오류:', error);
+            }
+        });
+    }
+
+    // Robot Control - K Button (Turn Left)
+    const btnK = document.getElementById('btn-k');
+    
+    if (btnK) {
+        btnK.addEventListener('click', async () => {
+            try {
+                const response = await fetch(CONFIG.controlServerUrl + CONFIG.endpoints.robotTurnLeft, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ speed: CONFIG.robotControl.defaultSpeed })
+                });
+                const data = await response.json();
+                console.log('Robot turn_left response:', data);
+                
+                if (data.success) {
+                    // 성공 시 버튼 피드백 (선택적)
+                    btnK.style.backgroundColor = '#34a9a0';
+                    setTimeout(() => {
+                        btnK.style.backgroundColor = '';
+                    }, 200);
+                }
+            } catch (error) {
+                console.error('Robot turn_left API 호출 오류:', error);
+            }
+        });
+    }
+
+    // Robot Control - L Button (Turn Right)
+    const btnL = document.getElementById('btn-l');
+    
+    if (btnL) {
+        btnL.addEventListener('click', async () => {
+            try {
+                const response = await fetch(CONFIG.controlServerUrl + CONFIG.endpoints.robotTurnRight, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ speed: CONFIG.robotControl.defaultSpeed })
+                });
+                const data = await response.json();
+                console.log('Robot turn_right response:', data);
+                
+                if (data.success) {
+                    // 성공 시 버튼 피드백 (선택적)
+                    btnL.style.backgroundColor = '#34a9a0';
+                    setTimeout(() => {
+                        btnL.style.backgroundColor = '';
+                    }, 200);
+                }
+            } catch (error) {
+                console.error('Robot turn_right API 호출 오류:', error);
+            }
+        });
+    }
+
+    // Robot Control - O Button (Gripper Open)
+    const btnO = document.getElementById('btn-o');
+    
+    if (btnO) {
+        btnO.addEventListener('click', async () => {
+            try {
+                const response = await fetch(CONFIG.controlServerUrl + CONFIG.endpoints.gripperOpen, {
+                    method: 'POST'
+                });
+                const data = await response.json();
+                console.log('Gripper open response:', data);
+                
+                if (data.success) {
+                    // 성공 시 버튼 피드백 (선택적)
+                    btnO.style.backgroundColor = '#34a9a0';
+                    setTimeout(() => {
+                        btnO.style.backgroundColor = '';
+                    }, 200);
+                }
+            } catch (error) {
+                console.error('Gripper open API 호출 오류:', error);
+            }
+        });
+    }
+
+    // Robot Control - P Button (Gripper Close)
+    const btnP = document.getElementById('btn-p');
+    
+    if (btnP) {
+        btnP.addEventListener('click', async () => {
+            try {
+                const response = await fetch(CONFIG.controlServerUrl + CONFIG.endpoints.gripperClose, {
+                    method: 'POST'
+                });
+                const data = await response.json();
+                console.log('Gripper close response:', data);
+                
+                if (data.success) {
+                    // 성공 시 버튼 피드백 (선택적)
+                    btnP.style.backgroundColor = '#34a9a0';
+                    setTimeout(() => {
+                        btnP.style.backgroundColor = '';
+                    }, 200);
+                }
+            } catch (error) {
+                console.error('Gripper close API 호출 오류:', error);
+            }
+        });
+    }
+
+    // Robot Control - Button 1 (Arm Joint 0 +)
+    const btn1 = document.getElementById('btn-1');
+    
+    if (btn1) {
+        btn1.addEventListener('click', async () => {
+            try {
+                const response = await fetch(CONFIG.controlServerUrl + CONFIG.endpoints.armJoint + '0', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ delta: '+' })
+                });
+                const data = await response.json();
+                console.log('Arm joint 0 response:', data);
+                
+                if (data.success) {
+                    // 성공 시 버튼 피드백 (선택적)
+                    btn1.style.backgroundColor = '#34a9a0';
+                    setTimeout(() => {
+                        btn1.style.backgroundColor = '';
+                    }, 200);
+                }
+            } catch (error) {
+                console.error('Arm joint 0 API 호출 오류:', error);
+            }
+        });
+    }
+
+    // Robot Control - Button Q (Arm Joint 0 -)
+    const btnQ = document.getElementById('btn-q');
+    
+    if (btnQ) {
+        btnQ.addEventListener('click', async () => {
+            try {
+                const response = await fetch(CONFIG.controlServerUrl + CONFIG.endpoints.armJoint + '0', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ delta: '-' })
+                });
+                const data = await response.json();
+                console.log('Arm joint 0 response:', data);
+                
+                if (data.success) {
+                    // 성공 시 버튼 피드백 (선택적)
+                    btnQ.style.backgroundColor = '#34a9a0';
+                    setTimeout(() => {
+                        btnQ.style.backgroundColor = '';
+                    }, 200);
+                }
+            } catch (error) {
+                console.error('Arm joint 0 API 호출 오류:', error);
+            }
+        });
+    }
+
+    // Robot Control - Button 2 (Arm Joint 1 +)
+    const btn2 = document.getElementById('btn-2');
+    
+    if (btn2) {
+        btn2.addEventListener('click', async () => {
+            try {
+                const response = await fetch(CONFIG.controlServerUrl + CONFIG.endpoints.armJoint + '1', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ delta: '+' })
+                });
+                const data = await response.json();
+                console.log('Arm joint 1 response:', data);
+                
+                if (data.success) {
+                    // 성공 시 버튼 피드백 (선택적)
+                    btn2.style.backgroundColor = '#34a9a0';
+                    setTimeout(() => {
+                        btn2.style.backgroundColor = '';
+                    }, 200);
+                }
+            } catch (error) {
+                console.error('Arm joint 1 API 호출 오류:', error);
+            }
+        });
+    }
+
+    // Robot Control - Button W (Arm Joint 1 -)
+    const btnW = document.getElementById('btn-w');
+    
+    if (btnW) {
+        btnW.addEventListener('click', async () => {
+            try {
+                const response = await fetch(CONFIG.controlServerUrl + CONFIG.endpoints.armJoint + '1', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ delta: '-' })
+                });
+                const data = await response.json();
+                console.log('Arm joint 1 response:', data);
+                
+                if (data.success) {
+                    // 성공 시 버튼 피드백 (선택적)
+                    btnW.style.backgroundColor = '#34a9a0';
+                    setTimeout(() => {
+                        btnW.style.backgroundColor = '';
+                    }, 200);
+                }
+            } catch (error) {
+                console.error('Arm joint 1 API 호출 오류:', error);
+            }
+        });
+    }
+
+    // Robot Control - Button 3 (Arm Joint 2 +)
+    const btn3 = document.getElementById('btn-3');
+    
+    if (btn3) {
+        btn3.addEventListener('click', async () => {
+            try {
+                const response = await fetch(CONFIG.controlServerUrl + CONFIG.endpoints.armJoint + '2', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ delta: '+' })
+                });
+                const data = await response.json();
+                console.log('Arm joint 2 response:', data);
+                
+                if (data.success) {
+                    // 성공 시 버튼 피드백 (선택적)
+                    btn3.style.backgroundColor = '#34a9a0';
+                    setTimeout(() => {
+                        btn3.style.backgroundColor = '';
+                    }, 200);
+                }
+            } catch (error) {
+                console.error('Arm joint 2 API 호출 오류:', error);
+            }
+        });
+    }
+
+    // Robot Control - Button E (Arm Joint 2 -)
+    const btnE = document.getElementById('btn-e');
+    
+    if (btnE) {
+        btnE.addEventListener('click', async () => {
+            try {
+                const response = await fetch(CONFIG.controlServerUrl + CONFIG.endpoints.armJoint + '2', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ delta: '-' })
+                });
+                const data = await response.json();
+                console.log('Arm joint 2 response:', data);
+                
+                if (data.success) {
+                    // 성공 시 버튼 피드백 (선택적)
+                    btnE.style.backgroundColor = '#34a9a0';
+                    setTimeout(() => {
+                        btnE.style.backgroundColor = '';
+                    }, 200);
+                }
+            } catch (error) {
+                console.error('Arm joint 2 API 호출 오류:', error);
+            }
+        });
+    }
+
+    // Robot Control - Button 4 (Arm Joint 3 +)
+    const btn4 = document.getElementById('btn-4');
+    
+    if (btn4) {
+        btn4.addEventListener('click', async () => {
+            try {
+                const response = await fetch(CONFIG.controlServerUrl + CONFIG.endpoints.armJoint + '3', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ delta: '+' })
+                });
+                const data = await response.json();
+                console.log('Arm joint 3 response:', data);
+                
+                if (data.success) {
+                    // 성공 시 버튼 피드백 (선택적)
+                    btn4.style.backgroundColor = '#34a9a0';
+                    setTimeout(() => {
+                        btn4.style.backgroundColor = '';
+                    }, 200);
+                }
+            } catch (error) {
+                console.error('Arm joint 3 API 호출 오류:', error);
+            }
+        });
+    }
+
+    // Robot Control - Button R (Arm Joint 3 -)
+    const btnR = document.getElementById('btn-r');
+    
+    if (btnR) {
+        btnR.addEventListener('click', async () => {
+            try {
+                const response = await fetch(CONFIG.controlServerUrl + CONFIG.endpoints.armJoint + '3', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ delta: '-' })
+                });
+                const data = await response.json();
+                console.log('Arm joint 3 response:', data);
+                
+                if (data.success) {
+                    // 성공 시 버튼 피드백 (선택적)
+                    btnR.style.backgroundColor = '#34a9a0';
+                    setTimeout(() => {
+                        btnR.style.backgroundColor = '';
+                    }, 200);
+                }
+            } catch (error) {
+                console.error('Arm joint 3 API 호출 오류:', error);
+            }
+        });
+    }
+
+    // Robot Control - Home Button (Position Reset)
+    const btnHome = document.getElementById('btn-home');
+    
+    if (btnHome) {
+        btnHome.addEventListener('click', async () => {
+            try {
+                const response = await fetch(CONFIG.controlServerUrl + CONFIG.endpoints.robotHome, {
+                    method: 'POST'
+                });
+                const data = await response.json();
+                console.log('Robot home response:', data);
+                
+                if (data.success) {
+                    // 성공 시 버튼 피드백 (선택적)
+                    btnHome.style.backgroundColor = '#34a9a0';
+                    setTimeout(() => {
+                        btnHome.style.backgroundColor = '';
+                    }, 200);
+                }
+            } catch (error) {
+                console.error('Robot home API 호출 오류:', error);
+            }
+        });
+    }
+
+    // Robot Control - Spawn Fruit Button
+    const btnSpawnFruit = document.getElementById('btn-spawn-fruit');
+    
+    if (btnSpawnFruit) {
+        btnSpawnFruit.addEventListener('click', async () => {
+            try {
+                const response = await fetch(CONFIG.controlServerUrl + CONFIG.endpoints.fruitSpawnAll, {
+                    method: 'POST'
+                });
+                const data = await response.json();
+                console.log('Fruit spawn response:', data);
+                
+                if (data.success) {
+                    // 성공 시 버튼 피드백 (선택적)
+                    btnSpawnFruit.style.backgroundColor = '#34a9a0';
+                    setTimeout(() => {
+                        btnSpawnFruit.style.backgroundColor = '';
+                    }, 200);
+                }
+            } catch (error) {
+                console.error('Fruit spawn API 호출 오류:', error);
+            }
+        });
+    }
 
     // Initial chart render
     renderChart();
